@@ -7,3 +7,4 @@ Goals
 * Create instructions on how to automate deploying static content from repo to Azure blob storage
 * Keep monthly spend under $1
 * Keep secrets secure
+* PROFIT!
