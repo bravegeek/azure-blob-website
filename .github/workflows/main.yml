@@ -13,8 +13,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   jekyll:
-    runs-on: ubuntu-16.04
-    #runs-on: ubuntu-latest
+    # runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
 
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -29,7 +29,9 @@ jobs:
           ${{ runner.os }}-gems-
 
     # Standard usage
-    - uses:  lemonarc/jekyll-action@1.0.0
+    - uses: fabacab/jekyll-builder-for-github-pages-action@v1
+      with:
+        jekyll_build_opts: -s /website
             
     - uses: actions/setup-dotnet@v1
       with:
