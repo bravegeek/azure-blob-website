@@ -30,8 +30,8 @@ jobs:
 
     # Standard usage
     - uses: fabacab/jekyll-builder-for-github-pages-action@v1
-      with:
-        jekyll_build_opts: --source ./website
+      # with:
+      #   jekyll_build_opts: --source ./website
             
     - uses: actions/setup-dotnet@v1
       with:
