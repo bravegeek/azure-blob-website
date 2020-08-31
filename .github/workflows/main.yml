@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build Jekyll
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -13,30 +13,32 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   jekyll:
-    runs-on: ubuntu-16.04
-    # runs-on: ubuntu-latest
+    name: Build and deploy Jekyll site
+    runs-on: ubuntu-latest
 
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - name: Checkout
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      uses: actions/checkout@v2
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+    # # Use GitHub Actions' cache to shorten build times and decrease load on servers
+    # - uses: actions/cache@v1
+    #   with:
+    #     path: vendor/bundle
+    #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gems-
 
-    # Standard usage
-    - uses: fabacab/jekyll-builder-for-github-pages-action@v1
-      # with:
-      #   jekyll_build_opts: --source ./website
+    - name: Build
+      uses: jerryjvl/jekyll-build-action@v1
             
-    - uses: actions/setup-dotnet@v1
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.0.100'
-    - uses: lauchacarro/Azure-Storage-Action@master
+
+    - name: Copy to Azure blob storage
+      uses: lauchacarro/Azure-Storage-Action@master
       with:
         # enabled-static-website: 'true'
         folder: 'website/_site'
