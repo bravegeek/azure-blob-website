@@ -32,7 +32,8 @@ jobs:
     - name: Build
       uses: jerryjvl/jekyll-build-action@v1
            
-    - uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+    - name: Deploy to storage
+      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
       with:
         source_dir: '_site'
         container_name: '$web'
